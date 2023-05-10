@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" 
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+             xmlns:helper="clr-namespace:lestoma.App.Converters"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True" Title="Upas"
+             x:Class="lestoma.App.Views.Upas.UpaPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_plus.png" Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helper:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid Opacity=".8" BackgroundColor="Black" IsVisible="{Binding IsBusy}">
+            <busyindicator:SfBusyIndicator AnimationType="Cupertino" 
+                	                   BackgroundColor="{StaticResource PantoneGrisLight}"
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsBusy}"
+                	                   Title="Cargando..."
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+        </Grid>
+        <StackLayout Padding="10">
+            <syncfusion:SfListView x:Name="LV_Upas" AutoFitMode="DynamicHeight" TapCommand="{Binding EditCommand}"
+                             ItemsSource="{Binding Upas}" SelectionBackgroundColor="Transparent">
+
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5,10,5,10" CornerRadius="10" BackgroundColor="{StaticResource PantoneGrisLight}">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Nombre}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontFamily="Montserrat-Bold"
+                                       TextColor="{StaticResource PantoneVerdeSecond}" FontSize="Body"/>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Cantidad actividades: " TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                            <Span Text="{Binding CantidadActividades}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" 
+                                                  FontSize="Small" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Descripción: " TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                            <Span Text="{Binding Descripcion}" TextColor="Black" FontSize="Small" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label FontFamily="Montserrat-Bold" Text="Auditoría" TextColor="{StaticResource PantoneGris}" FontSize="15"/>
+                                <StackLayout Margin="15,0,0,0">
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Creado: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding FechaCreacionServer}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Actualizado: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding FechaActualizacionServer, TargetNullValue='N/A'}"  FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="IP modificación: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding Ip}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="usuario ultima modificación: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding Session}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Aplicación ultima modificación: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding TipoDeAplicacion}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <StackLayout>
+                                        <button:SfButton x:Name="buttonSee" HeightRequest="35" CornerRadius="5" Margin="10"
+                                             HorizontalOptions="StartAndExpand" TextColor="White" FontFamily="Montserrat-Bold"                                     
+                                             Text="Ver comunicaciones" BackgroundColor="{StaticResource PantoneAmarilloSecond}"
+                                            Command="{Binding BindingContext.SeeProtocolsCommand, Source={x:Reference LV_Upas}}" 
+                                             CommandParameter="{Binding .}" ImageSource="icon_see.png" ShowIcon="True">
+                                        </button:SfButton>
+                                        <button:SfButton x:Name="buttonCreate" HeightRequest="35" CornerRadius="5" Margin="10"
+                                             HorizontalOptions="StartAndExpand" TextColor="White" FontFamily="Montserrat-Bold"                                     
+                                             Text="agregar comunicación" BackgroundColor="{StaticResource PantoneAmarilloSecond}"
+                                            Command="{Binding BindingContext.CreateProtocolCommand, Source={x:Reference LV_Upas}}" 
+                                             CommandParameter="{Binding .}" ImageSource="icon_create.png" ShowIcon="True">
+                                        </button:SfButton>
+                                    </StackLayout>
+                                    <button:SfButton HeightRequest="35" CornerRadius="5" VerticalOptions="CenterAndExpand"
+                                             HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource PantoneGrisLight}"
+                                            Command="{Binding BindingContext.DeleteCommand, Source={x:Reference LV_Upas}}" 
+                                             CommandParameter="{Binding .}" ImageSource="icon_delete.png" ImageAlignment="End" ShowIcon="True">
+                                    </button:SfButton>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+            <button:SfButton HeightRequest="35" CornerRadius="5" Margin="10"
+                                             HorizontalOptions="CenterAndExpand"                                      
+                                             Text="Cargar más resultados" Style="{StaticResource LestomaGradientButtonStyle}"
+                                            Command="{Binding MoreUpasCommand}" IsVisible="{Binding IsRefreshing}" ImageSource="icon_see.png" ShowIcon="True">
+            </button:SfButton>
+        </StackLayout>
+    </Grid>
+</ContentPage>

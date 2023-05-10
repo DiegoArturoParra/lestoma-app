@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="lestoma.App.Views.OnBoardingPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PantoneVerdeSecond}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal" Margin="10,0,10,0">
+                <Button
+                    HorizontalOptions="EndAndExpand"         
+                    FontSize="Medium"
+                    FontFamily="Montserrat-Bold"
+                    BackgroundColor="Transparent"              
+                    TextColor="{StaticResource PantoneVerdeSecond}"
+                    Text="{Binding SkipButtonText}"
+                    Command="{Binding SkipCommand}"/>
+                <Label
+                        Margin="10,2,10,0" HorizontalOptions="Start"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource ArrowRight}" />
+            </StackLayout>
+
+            <CarouselView IndicatorView="{x:Reference LestomaIndicator}"
+                          Grid.Row="1" 
+                          ItemsSource="{Binding Items}"                          
+                          VerticalOptions="Center"
+                          Position="{Binding Position}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <FlexLayout Direction="Column"
+                                    JustifyContent="SpaceEvenly">
+                                <Label Text="{Binding Title}" FontSize="20" FontFamily="Montserrat-SemiBold" />
+                                <ffimageloadingsvg:SvgCachedImage                                  
+                                       Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       WidthRequest="300" 
+                                       FlexLayout.AlignSelf="Center"/>
+                                <Label Text="{Binding Content}" FontFamily="Montserrat-Regular" TextColor="Black"
+                                       FontSize="Small"/>
+                            </FlexLayout>
+                        </ContentView>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView x:Name="LestomaIndicator"
+                    Grid.Row="2"
+                    IndicatorsShape="Circle"
+                    IndicatorColor="Transparent"
+                            Margin="0,50,0,40" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                    SelectedIndicatorColor="Transparent">
+                <IndicatorView.IndicatorTemplate>
+                    <DataTemplate>
+                        <Label Style="{StaticResource IndicatorLabelStyle}"  VerticalOptions="CenterAndExpand" 
+                               HorizontalOptions="CenterAndExpand" Text="{StaticResource Indicator}"/>
+                    </DataTemplate>
+                </IndicatorView.IndicatorTemplate>
+
+            </IndicatorView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

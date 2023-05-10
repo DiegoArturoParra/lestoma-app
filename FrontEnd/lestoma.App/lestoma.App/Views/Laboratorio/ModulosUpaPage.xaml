@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" 
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms" xmlns:controls="clr-namespace:lestoma.App.Controls"
+             prism:ViewModelLocator.AutowireViewModel="True" Title="{Binding Title}"
+             x:Class="lestoma.App.Views.Laboratorio.ModulosUpaPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_about" Order="Primary" Command="{Binding HelpCommand}"/>
+        <ToolbarItem Text="Prender Bluetooth" Command="{Binding ActivarBluetoothCommand}"
+                 Order="Secondary"/>
+        <ToolbarItem Text="Conectar a laboratorio" Command="{Binding ConnectionBluetoothCommand}"
+                 Order="Secondary"/>
+        <ToolbarItem Text="Cerrar Sesión" Command="{Binding OnSignOutCommand}"
+                 Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid Opacity=".8" BackgroundColor="Black" IsVisible="{Binding IsBusy}">
+            <busyindicator:SfBusyIndicator AnimationType="Cupertino" 
+                	                   BackgroundColor="{StaticResource PantoneGrisLight}"
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsBusy}"
+                	                   Title="Cargando..."
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+        </Grid>
+        <StackLayout Padding="10">
+            <syncfusion:SfListView  x:Name="LV_Modulos" 
+                             ItemsSource="{Binding Modulos}" TapCommand="{Binding SeeComponentCommand}" 
+                                    AutoFitMode="Height" SelectionBackgroundColor="Transparent">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" Margin="0,10,0,10">
+                            <StackLayout Orientation="Horizontal">
+                                <Label HorizontalOptions="Start"
+                                        Margin="16,0,0,0"
+                                        Style="{StaticResource IconLabelStyle}"
+                                        Text="{StaticResource Settings}" />
+                                <!--  Edit profile label  -->
+                                <Label
+                                    Margin="16,0,0,0"
+                                    FontFamily="Montserrat-SemiBold"
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource TitleLabelStyle}"
+                                    Text="{Binding Nombre}"
+                                    VerticalOptions="Center" />
+                                <!--  Navigation icon  -->
+                                <Label
+                                    HorizontalOptions="EndAndExpand"
+                                    Margin="16,8"
+                                    Style="{StaticResource IconLabelStyle}"
+                                    Text="{StaticResource Next}" />
+                            </StackLayout>
+                            <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="10,5">
+                <Label  Grid.Column="0"
+                                    FontFamily="fontello" TextColor="{StaticResource TwitterBlue}"
+                                    Style="{StaticResource IconLabelStyle}"
+                                    Text="{StaticResource IconBluetoothB}" />
+                <Button  Text="Conectar AL Laboratorio"  FontFamily="Montserrat-Bold" FontSize="12"
+                    BackgroundColor="Transparent" CornerRadius="25"
+                    TextColor="{StaticResource PantoneVerdeDark}" Command="{Binding ConnectionBluetoothCommand}">
+                </Button>
+                <Label  Grid.Column="0"
+                                    FontFamily="fontello" TextColor="{StaticResource Gray-Black}"
+                                    Style="{StaticResource IconLabelStyle}"
+                                    Text="{StaticResource IconAngleRight}" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

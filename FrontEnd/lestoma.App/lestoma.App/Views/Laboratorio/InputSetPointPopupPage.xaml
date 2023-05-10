@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"    
+             xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms" 
+                  xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+                  xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+                  xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"  
+                  xmlns:syncmaskededit="clr-namespace:Syncfusion.XForms.MaskedEdit;assembly=Syncfusion.SfMaskedEdit.XForms"
+                  x:Class="lestoma.App.Views.Laboratorio.InputSetPointPopupPage"
+                  Title="{Binding Title}">
+    <popup:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </popup:PopupPage.Animation>
+    <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <cards:SfCardView BackgroundColor="White" CornerRadius="10" 
+                          HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                           Margin="{core:OnPlatformOrientationThickness  PhonePortrait='30,40',
+                                                                 PhoneLandscape='150,32',
+                                                                 TabletPortrait='200,50',
+                                                                 TabletLandscape='200,50',
+                                                                 Desktop='30'}">
+            <ScrollView>
+                <StackLayout VerticalOptions="End" WidthRequest="500"
+               Margin="0,0,0,20">
+                    <Grid Padding="30,25,25,0">
+                        <Label Text="Agregar valor ajuste" FontSize="Large" 
+                           HorizontalTextAlignment="Start" TextColor="{StaticResource PantoneVerdeDark}">
+                        </Label>
+                        <Frame WidthRequest="32" HeightRequest="32"
+                        Padding="0" CornerRadius="40" HorizontalOptions="End">
+                            <ContentView>
+                                <ContentView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+                                </ContentView.GestureRecognizers>
+                                <Image Source="icon_close.png"  Aspect="AspectFill" />
+                            </ContentView>
+                        </Frame>
+                    </Grid>
+                    <StackLayout Spacing="20" Margin="30,0,30,20">
+                        <StackLayout Orientation="Horizontal">
+                            <Label HorizontalOptions="Start" Margin="16,0,0,0" FontFamily="Fontello"
+                                        Style="{StaticResource IconLabelStyle}" Text="{StaticResource IconInfo}" />
+                            <Label Text="Para ingresar el valor de ajuste, está limitado a un número de tres cifras y dos decimales, de un rango de 1-500. Recuerde si desea poner 5°c o 20°c números cerrados debe ingresar 5.0 o 20.0" FontFamily="Montserrat-Regular" FontSize="12" 
+                           HorizontalTextAlignment="Start" TextColor="{StaticResource Gray-600}"/>
+                        </StackLayout>
+                        <inputLayout:SfTextInputLayout Hint="Ingrese valor" FocusedColor="Black" HeightRequest="90"
+                                                   ContainerBackgroundColor="Transparent">
+                            <syncmaskededit:SfMaskedEdit MaskType="RegEx" Value="{Binding InputSetPoint}" Mask="[0-9]{1,3}(\.[0-9]{1,2})" Margin="8,5" FontSize="25"  />
+                        </inputLayout:SfTextInputLayout>
+                        <buttons:SfButton
+                        HorizontalOptions="FillAndExpand" 
+                        Command="{Binding SaveCommand}"
+                        CornerRadius="4"
+                        Style="{StaticResource LestomaGradientButtonStyle}"
+                        Text="Guardar" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </cards:SfCardView>
+    </Grid>
+</popup:PopupPage>

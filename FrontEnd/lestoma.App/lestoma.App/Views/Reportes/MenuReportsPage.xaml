@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="http://prismlibrary.com" 
+             xmlns:controls="clr-namespace:lestoma.App.Controls"
+            xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms" 
+             prism:ViewModelLocator.AutowireViewModel="True" Title="Generación de reportes"
+            x:Class="lestoma.App.Views.Reportes.MenuReportsPage">
+    <syncfusion:SfListView BackgroundColor="Transparent" ItemsSource="{Binding MenuReport}"
+                                    AutoFitMode="Height" SelectionBackgroundColor="Transparent">
+        <syncfusion:SfListView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout BackgroundColor="{StaticResource Gray-White}" Orientation="Vertical">
+                    <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  
+                          ColumnDefinitions="Auto, *, Auto"
+                          ColumnSpacing="0" RowSpacing="0"
+                          BackgroundColor="{StaticResource PantoneVerdeSecond}" Margin="20">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding SelectMenuCommand}"/>
+                        </Grid.GestureRecognizers>
+                        <Image HorizontalOptions="Start" Grid.Column="0"
+                                        Margin="16,10,0,10"
+                                       VerticalOptions="CenterAndExpand"
+                                    	   HeightRequest="100"
+                                    	   Source="{Binding Icon}"
+                                    	   WidthRequest="128"/>
+                        <Label VerticalOptions="CenterAndExpand" Grid.Column="1" 
+                                           FontFamily="Montserrat-SemiBold"
+                                             FontSize="15" Margin="5"
+                                            HorizontalTextAlignment="Center"
+                                           TextColor="{StaticResource Gray-White}"
+                                           Text="{Binding Title}"/>
+                        <Label
+                                    HorizontalOptions="EndAndExpand" Grid.Column="2"
+                                    Margin="16,8"
+                                    Style="{StaticResource IconLabelStyle}" TextColor="White"
+                                    Text="{StaticResource ArrowRight}" />
+                    </Grid>
+                    <BoxView  Style="{StaticResource HorizontalSeparatorStyle}" HeightRequest="1" />
+                </StackLayout>
+            </DataTemplate>
+        </syncfusion:SfListView.ItemTemplate>
+    </syncfusion:SfListView>
+</ContentPage>

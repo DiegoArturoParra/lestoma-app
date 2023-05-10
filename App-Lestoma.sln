@@ -1,0 +1,99 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.Api", "BackEnd\src\lestoma.Api\lestoma.Api.csproj", "{AB3F7DFF-08F0-4BCF-B113-C34CCCF42066}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.CommonUtils", "BackEnd\src\lestoma.CommonUtils\lestoma.CommonUtils.csproj", "{9C971D0A-DF51-4294-AC66-68DD87864927}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.Data", "BackEnd\src\lestoma.Data\lestoma.Data.csproj", "{5CD90DAE-8FEA-4A59-98A1-67FA5BF15A93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.Logica", "BackEnd\src\lestoma.Logica\lestoma.Logica.csproj", "{5E0AB134-E8CF-4C93-BFC1-AE2AF99F9358}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.Entidades", "BackEnd\src\lestoma.Entidades\lestoma.Entidades.csproj", "{CEF4C5CB-DC6D-400A-83E0-5136E355ED0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.CRC", "BackEnd\src\lestoma.CRC\lestoma.CRC.csproj", "{3CE9E339-1378-4CB0-B94C-3D7D18292E13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.App", "FrontEnd\lestoma.App\lestoma.App\lestoma.App.csproj", "{E85FFB03-49C3-4992-86AA-238A2AAD1325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lestoma.App.Android", "FrontEnd\lestoma.App\lestoma.App.Android\lestoma.App.Android.csproj", "{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lestoma.DatabaseOffline", "FrontEnd\lestoma.DatabaseOffline\lestoma.DatabaseOffline.csproj", "{2E9B9677-AFE4-47ED-98E0-C226F32F8B6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{818303EF-4D00-4758-9196-382F23A7E02A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{ED8C1571-5D02-44C5-9197-F7F8C167B736}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36DEB4E0-1BD7-4459-BDB3-101C2E4707BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lestoma.Tests", "Tests\lestoma.Tests\lestoma.Tests.csproj", "{41A84579-280A-43E2-B644-03CA031CDF15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB3F7DFF-08F0-4BCF-B113-C34CCCF42066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3F7DFF-08F0-4BCF-B113-C34CCCF42066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3F7DFF-08F0-4BCF-B113-C34CCCF42066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3F7DFF-08F0-4BCF-B113-C34CCCF42066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C971D0A-DF51-4294-AC66-68DD87864927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C971D0A-DF51-4294-AC66-68DD87864927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C971D0A-DF51-4294-AC66-68DD87864927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C971D0A-DF51-4294-AC66-68DD87864927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CD90DAE-8FEA-4A59-98A1-67FA5BF15A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CD90DAE-8FEA-4A59-98A1-67FA5BF15A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CD90DAE-8FEA-4A59-98A1-67FA5BF15A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CD90DAE-8FEA-4A59-98A1-67FA5BF15A93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E0AB134-E8CF-4C93-BFC1-AE2AF99F9358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E0AB134-E8CF-4C93-BFC1-AE2AF99F9358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E0AB134-E8CF-4C93-BFC1-AE2AF99F9358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E0AB134-E8CF-4C93-BFC1-AE2AF99F9358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF4C5CB-DC6D-400A-83E0-5136E355ED0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF4C5CB-DC6D-400A-83E0-5136E355ED0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF4C5CB-DC6D-400A-83E0-5136E355ED0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF4C5CB-DC6D-400A-83E0-5136E355ED0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CE9E339-1378-4CB0-B94C-3D7D18292E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CE9E339-1378-4CB0-B94C-3D7D18292E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CE9E339-1378-4CB0-B94C-3D7D18292E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CE9E339-1378-4CB0-B94C-3D7D18292E13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E85FFB03-49C3-4992-86AA-238A2AAD1325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E85FFB03-49C3-4992-86AA-238A2AAD1325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E85FFB03-49C3-4992-86AA-238A2AAD1325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E85FFB03-49C3-4992-86AA-238A2AAD1325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2E9B9677-AFE4-47ED-98E0-C226F32F8B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9B9677-AFE4-47ED-98E0-C226F32F8B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9B9677-AFE4-47ED-98E0-C226F32F8B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9B9677-AFE4-47ED-98E0-C226F32F8B6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A84579-280A-43E2-B644-03CA031CDF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A84579-280A-43E2-B644-03CA031CDF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A84579-280A-43E2-B644-03CA031CDF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A84579-280A-43E2-B644-03CA031CDF15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AB3F7DFF-08F0-4BCF-B113-C34CCCF42066} = {818303EF-4D00-4758-9196-382F23A7E02A}
+		{9C971D0A-DF51-4294-AC66-68DD87864927} = {818303EF-4D00-4758-9196-382F23A7E02A}
+		{5CD90DAE-8FEA-4A59-98A1-67FA5BF15A93} = {818303EF-4D00-4758-9196-382F23A7E02A}
+		{5E0AB134-E8CF-4C93-BFC1-AE2AF99F9358} = {818303EF-4D00-4758-9196-382F23A7E02A}
+		{CEF4C5CB-DC6D-400A-83E0-5136E355ED0E} = {818303EF-4D00-4758-9196-382F23A7E02A}
+		{3CE9E339-1378-4CB0-B94C-3D7D18292E13} = {818303EF-4D00-4758-9196-382F23A7E02A}
+		{E85FFB03-49C3-4992-86AA-238A2AAD1325} = {ED8C1571-5D02-44C5-9197-F7F8C167B736}
+		{F0B920DC-EAC8-4380-9A4F-938CE6824D1E} = {ED8C1571-5D02-44C5-9197-F7F8C167B736}
+		{2E9B9677-AFE4-47ED-98E0-C226F32F8B6A} = {ED8C1571-5D02-44C5-9197-F7F8C167B736}
+		{41A84579-280A-43E2-B644-03CA031CDF15} = {36DEB4E0-1BD7-4459-BDB3-101C2E4707BF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABEFCAE5-8D5E-4C7A-8EF0-6920AE61593E}
+	EndGlobalSection
+EndGlobal

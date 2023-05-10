@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="http://prismlibrary.com"
+                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                  xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                  xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms" 
+                  xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms" 
+                  xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" 
+                  xmlns:core="clr-namespace:Syncfusion.XForms.Core;assembly=Syncfusion.Core.XForms"
+                  x:Class="lestoma.App.Views.Reportes.FilterDatePopupPage">
+    <popup:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </popup:PopupPage.Animation>
+    <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <cards:SfCardView BackgroundColor="White" CornerRadius="10" 
+                          HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                           Margin="{core:OnPlatformOrientationThickness  PhonePortrait='30,40',
+                                                                 PhoneLandscape='150,32',
+                                                                 TabletPortrait='200,50',
+                                                                 TabletLandscape='200,50',
+                                                                 Desktop='30'}">
+            <ScrollView>
+                <StackLayout VerticalOptions="End" WidthRequest="500" Margin="0,0,0,20">
+                    <Grid Padding="30,25,25,0">
+                        <Label Text="Filtro" FontSize="Large"
+                           HorizontalTextAlignment="Start" TextColor="{StaticResource PantoneVerdeDark}"></Label>
+                        <Frame WidthRequest="32" HeightRequest="32"
+                        Padding="0" CornerRadius="40" HorizontalOptions="End">
+                            <ContentView>
+                                <ContentView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseButtonTapped"/>
+                                </ContentView.GestureRecognizers>
+                                <Image Source="icon_close.png"  Aspect="AspectFill" />
+                            </ContentView>
+                        </Frame>
+                    </Grid>
+                    <StackLayout Spacing="10" Margin="20,20,30,10" HorizontalOptions="FillAndExpand">
+                        <!--tipo estado-->
+                        <Label Text="Fecha de inicio" FontFamily="Montserrat-SemiBold" Margin="10,0,0,0" VerticalOptions="StartAndExpand" 
+                       HorizontalOptions="StartAndExpand" FontSize="16"/>
+                        <border:SfBorder Style="{StaticResource ThemeBorderStyle}">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <inputLayout:SfTextInputLayout Hint="Fecha" FocusedColor="Black" HorizontalOptions="FillAndExpand"
+                                                               ContainerBackgroundColor="Transparent" HeightRequest="80">
+                                    <Grid>
+                                        <DatePicker HorizontalOptions="FillAndExpand" Format="dd/MM/yyyy" 
+                                            Date="{Binding DateInitial}" Grid.Column="0" MinimumDate="{Binding InitialMinimumDate}" 
+                                            MaximumDate="{x:Static sys:DateTime.Now}"/>
+                                        <Label  Margin="0,13,-5,0" TextColor="{StaticResource Gray-Black}"
+                                            Style="{StaticResource IconLabelStyle}" FontFamily="Fontello" HorizontalOptions="EndAndExpand"
+                                            Text="{StaticResource IconCalendar}" />
+                                    </Grid>
+                                </inputLayout:SfTextInputLayout>
+                                <inputLayout:SfTextInputLayout Hint="Hora" FocusedColor="Black" HorizontalOptions="FillAndExpand"
+                                                               ContainerBackgroundColor="Transparent" HeightRequest="80">
+                                    <Grid>
+                                        <TimePicker Time="{Binding SaveTimeInitial, Mode=TwoWay}" HorizontalOptions="FillAndExpand" Grid.Column="0"/>
+                                        <Label Margin="0,15,0,0"  TextColor="{StaticResource Gray-600}" HorizontalOptions="EndAndExpand"
+                                            FontFamily="Fontello" Style="{StaticResource IconLabelStyle}" Text="{StaticResource IconClock}"/>
+                                    </Grid>
+                                </inputLayout:SfTextInputLayout>
+                            </StackLayout>
+                        </border:SfBorder>
+                        <Label Text="Fecha de finalización" FontFamily="Montserrat-SemiBold" Margin="10,0,0,0"
+                               VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" FontSize="16"/>
+                        <border:SfBorder Style="{StaticResource ThemeBorderStyle}">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <inputLayout:SfTextInputLayout Hint="Fecha" FocusedColor="Black" HorizontalOptions="FillAndExpand"
+                                                               ContainerBackgroundColor="Transparent" HeightRequest="80">
+                                    <Grid>
+                                        <DatePicker HorizontalOptions="FillAndExpand" Format="dd/MM/yyyy" IsEnabled="{Binding IsEnabled}"
+                                            Date="{Binding DateFinal}" Grid.Column="0" MinimumDate="{Binding FinalMinimumDate}" 
+                                            MaximumDate="{x:Static sys:DateTime.Now}"/>
+                                        <Label  Margin="0,13,0,0" TextColor="{StaticResource Gray-Black}"
+                                            Style="{StaticResource IconLabelStyle}" FontFamily="Fontello" HorizontalOptions="EndAndExpand"
+                                            Text="{StaticResource IconCalendar}" />
+                                    </Grid>
+                                </inputLayout:SfTextInputLayout>
+                                <inputLayout:SfTextInputLayout Hint="Hora" FocusedColor="Black" HorizontalOptions="FillAndExpand"
+                                                               ContainerBackgroundColor="Transparent" HeightRequest="80">
+                                    <Grid>
+                                        <TimePicker Time="{Binding SaveTimeFinal, Mode=TwoWay}" HorizontalOptions="FillAndExpand" Grid.Column="0" IsEnabled="{Binding IsEnabled}"/>
+                                        <Label Margin="0,15,0,0"  TextColor="{StaticResource Gray-600}" HorizontalOptions="EndAndExpand"
+                                            FontFamily="Fontello" Style="{StaticResource IconLabelStyle}" Text="{StaticResource IconClock}"/>
+                                    </Grid>
+                                </inputLayout:SfTextInputLayout>
+                            </StackLayout>
+                        </border:SfBorder>
+                        <!--/tipo estado-->
+                        <buttons:SfButton Margin="0,20,0,0"
+                        HorizontalOptions="FillAndExpand" 
+                        Command="{Binding SaveCommand}"
+                        CornerRadius="4" 
+                        Style="{StaticResource LestomaPopupGradientButtonStyle}"
+                        Text="Guardar" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </cards:SfCardView>
+    </Grid>
+</popup:PopupPage>
+    

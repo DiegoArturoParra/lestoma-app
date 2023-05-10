@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="lestoma.App.Views.AboutPage"
+             Title="Acerca de Lestoma">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_about" Order="Primary" Command="{Binding HelpCommand}"/>
+        <ToolbarItem Text="Cerrar Sesión" Command="{Binding OnSignOutCommand}"
+                 Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Label Text="Aplicativo móvil el cual realice un control del sistema acuapónico en la finca el vergel de la Universidad Cundinamarca extensión Facatativá,mejorando así la producción de esta misma." 
+         HorizontalTextAlignment="Center" 
+         Margin="10,10" FontFamily="Montserrat-Regular"
+         TextColor="{StaticResource Gray-Black}" FontSize="Title">
+        </Label>
+    </Grid>
+</ContentPage>

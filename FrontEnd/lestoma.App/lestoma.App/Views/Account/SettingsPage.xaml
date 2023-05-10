@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:controls="clr-namespace:lestoma.App.Controls"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True" 
+             x:Class="lestoma.App.Views.Account.SettingsPage" Title="{Binding FullName}">
+    <StackLayout>
+        <ScrollView>
+            <StackLayout BackgroundColor="{DynamicResource Gray-Bg}" Spacing="0">
+                <!--  Header label for account setting  -->
+                <Label
+                    Margin="16,24,0,16"
+                    FontFamily="Montserrat-SemiBold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="PERFIL"
+                    TextColor="{DynamicResource Gray-800}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+                <!--  Grid for Change password label and navigation bar icon  -->
+                <controls:TapAnimationGrid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    Command="{Binding ChangePasswordCommand}"
+                    RowSpacing="0"
+                    Tapped="False">
+
+                    <!--  Change password icon  -->
+                    <Label
+                        Grid.Column="0"
+                        Margin="16,0,0,0"
+                        FontFamily="Fontello"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource IconLock}" />
+                    <!--  Change password label  -->
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Cambiar contraseña"
+                        VerticalOptions="Center" />
+                    <!--  Navigation icon  -->
+                    <Label
+                        Grid.Column="2"
+                        Margin="16,8"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Next}" />
+                </controls:TapAnimationGrid>
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+
+
+
+
+                <!--  Header lable for notifications  -->
+                <Label
+                    Margin="16,40,0,16"
+                    FontFamily="Montserrat-SemiBold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="NOTIFICACIONES"
+                    TextColor="{DynamicResource Gray-800}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+                <!--  Grid for Email notifications and switch  -->
+                <Grid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    RowSpacing="0">
+                    <!--  Email notification icon  -->
+                    <Label
+                        Grid.Column="0"
+                        Margin="16,0,0,0"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Mail}" />
+                    <!--  Email notification label  -->
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Notificaciones Via Email"
+                        VerticalOptions="Center" />
+                    <!--  Email notification switch  -->
+                    <buttons:SfSwitch
+                        Grid.Column="2" IsOn="{Binding IsOn}"
+                        Margin="8,0"
+                        AllowIndeterminateState="False"
+                        HeightRequest="28" 
+                        VisualType="Cupertino" >
+                        <buttons:SfSwitch.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding StateChangedCommand}" 
+                                                          EventName="StateChanged"/>
+                        </buttons:SfSwitch.Behaviors>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="On">
+                                    <VisualState.Setters>
+                                        <Setter Property="SwitchSettings">
+                                            <Setter.Value>
+                                                <buttons:CupertinoSwitchSettings
+                                                    x:TypeArguments="buttons:OnState"
+                                                    ThumbBorderColor="{DynamicResource Gray-White}"
+                                                    ThumbColor="{DynamicResource Gray-White}"
+                                                    TrackBorderColor="{DynamicResource Gray-200}"
+                                                    TrackColor="{DynamicResource PantoneVerdeThird}" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Off">
+                                    <VisualState.Setters>
+                                        <Setter Property="SwitchSettings">
+                                            <Setter.Value>
+                                                <buttons:CupertinoSwitchSettings
+                                                    x:TypeArguments="buttons:OffState"
+                                                    ThumbBorderColor="{DynamicResource Gray-300}"
+                                                    ThumbColor="{DynamicResource Gray-White}"
+                                                    TrackBorderColor="{DynamicResource Gray-300}"
+                                                    TrackColor="{DynamicResource Gray-300}" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </buttons:SfSwitch>
+                </Grid>
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                <!--  Header label for account setting  -->
+                <Label
+                    Margin="16,24,0,16"
+                    FontFamily="Montserrat-SemiBold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="CONFIGURACIÓN"
+                    TextColor="{DynamicResource Gray-800}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+                <controls:TapAnimationGrid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    Command="{Binding SetUpBluetoothCommand}"
+                    RowSpacing="0"
+                    Tapped="False">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="Fontello"
+                        Margin="16,0,0,0"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource IconBluetooth}" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Configuración de Bluetooth"
+                        VerticalOptions="Center" />
+                    <!--  Navigation icon  -->
+                    <Label
+                        Grid.Column="2"
+                        Margin="16,8"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Next}" />
+                </controls:TapAnimationGrid>
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                <controls:TapAnimationGrid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    Command="{Binding MigrateDataToDeviceCommand}"
+                    RowSpacing="0"
+                    Tapped="False">
+
+                    <Label
+                        Grid.Column="0"
+                        Margin="16,0,0,0"
+                        FontFamily="Fontello"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource IconSync}" />
+
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Sincronizar datos al modo offline"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Column="2"
+                        Margin="16,8"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Next}" />
+                </controls:TapAnimationGrid>
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                <controls:TapAnimationGrid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    Command="{Binding MigrateDataToServerCommand}"
+                    RowSpacing="0"
+                    Tapped="False">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="Fontello"
+                        Margin="16,0,0,0"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource IconSync}" />
+
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Sincronizar datos a la nube"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Column="2"
+                        Margin="16,8"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Next}" />
+                </controls:TapAnimationGrid>
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+
+                <!--  Header label for Support setting  -->
+                <Label
+                    Margin="16,40,0,16"
+                    FontFamily="Montserrat-SemiBold"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="SOBRE LESTOMA"
+                    TextColor="{DynamicResource Gray-800}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                <controls:TapAnimationGrid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    Command="{Binding RedirectionManualAppCommand}"
+                    RowSpacing="0"
+                    Tapped="False">
+
+                    <!--  help icon  -->
+                    <Label
+                        Grid.Column="0"
+                        Margin="16,0,0,0"
+                        FontFamily="Fontello"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource IconDocText}" />
+                    <!--  Help text label  -->
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Manual"
+                        VerticalOptions="Center" />
+                    <!--  Navigation icon  -->
+                    <Label
+                        Grid.Column="2"
+                        Margin="16,8"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Next}" />
+                </controls:TapAnimationGrid>
+
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+                <controls:TapAnimationGrid
+                    BackgroundColor="{DynamicResource Gray-Bg}"
+                    ColumnDefinitions="Auto, *, Auto"
+                    ColumnSpacing="0"
+                    Command="{Binding LogoutCommand}"
+                    RowSpacing="0"
+                    Tapped="False">
+                    <Label
+                        Grid.Column="0"
+                        Margin="16,0,0,0"
+                        FontFamily="Fontello"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource IconOff}" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="16,12"
+                        FontFamily="Montserrat-Medium"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Cerrar Sesión"
+                        VerticalOptions="Center" />
+                    <!--  Navigation icon  -->
+                    <Label
+                        Grid.Column="2"
+                        Margin="16,8"
+                        Style="{StaticResource IconLabelStyle}"
+                        Text="{StaticResource Next}" />
+                </controls:TapAnimationGrid>
+                <BoxView Style="{StaticResource HorizontalSeparatorStyle}" />
+            </StackLayout>
+        </ScrollView>
+        <Label
+            Margin="10"
+            FontFamily="Montserrat-SemiBold"
+            Text="Versión 1.0"
+            FontSize="12"
+            HorizontalOptions="FillAndExpand"
+            Style="{StaticResource TitleLabelStyle}"
+            VerticalOptions="EndAndExpand"
+            VerticalTextAlignment="Start" />
+    </StackLayout>
+
+</ContentPage>

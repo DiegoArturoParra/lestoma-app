@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" xmlns:helper="clr-namespace:lestoma.App.Converters"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms" 
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="lestoma.App.Views.Usuarios.UserPage" Title="Usuarios">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_add_user.png" Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helper:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid Opacity=".8" BackgroundColor="Black" IsVisible="{Binding IsBusy}">
+            <busyindicator:SfBusyIndicator AnimationType="Cupertino" 
+                	                   BackgroundColor="{StaticResource PantoneGrisLight}"
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsBusy}"
+                	                   Title="Cargando..."
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+        </Grid>
+        <StackLayout Padding="10">
+            <syncfusion:SfListView x:Name="LV_usuarios" AutoFitMode="DynamicHeight" TapCommand="{Binding EditCommand}"
+                             ItemsSource="{Binding Users}" SelectionBackgroundColor="Transparent">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5,0,5" CornerRadius="10" BackgroundColor="{StaticResource PantoneGrisLight}">
+                            <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                                <Frame HorizontalOptions="Start" Margin="0,5,0,5" Padding="4"  CornerRadius="8" BackgroundColor="{Binding ColorEstado}" VerticalOptions="StartAndExpand">
+                                    <Label  Text="{Binding InfoUser.Estado.NombreEstado}" FontAttributes="Bold" TextColor="white" FontSize="Small">
+                                    </Label>
+                                </Frame>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding InfoUser.FullName}"  FontFamily="Montserrat-Bold" TextColor="{StaticResource PantoneVerdeSecond}" FontSize="15"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Email: " TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                            <Span Text="{Binding InfoUser.Email}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="Small" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Rol: " TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                            <Span Text="{Binding InfoUser.Rol.NombreRol}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="Small"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label FontFamily="Montserrat-Bold" Text="Auditoría" TextColor="{StaticResource PantoneGris}" FontSize="15"/>
+                                <StackLayout Margin="15,0,0,0">
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Creado: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding InfoUser.FechaCreacionServer}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Actualizado: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding InfoUser.FechaActualizacionServer, TargetNullValue='N/A'}"  FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="IP modificación: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding InfoUser.Ip}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="usuario ultima modificación: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding InfoUser.Session}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Aplicación ultima modificación: " FontSize="13" TextColor="Black" FontFamily="Montserrat-SemiBold"/>
+                                                <Span Text="{Binding InfoUser.TipoDeAplicacion}" FontFamily="Montserrat-Regular" TextColor="{StaticResource Gray-900}" FontSize="13" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+        </StackLayout>
+    </Grid>
+</ContentPage>

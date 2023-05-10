@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" 
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms" 
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms" xmlns:control="clr-namespace:lestoma.App.Controls"
+             prism:ViewModelLocator.AutowireViewModel="True"  Title="Reporte Del Buzón"
+             x:Class="lestoma.App.Views.Buzon.CrearReporteDelBuzonPage">
+    <StackLayout Padding="30" Spacing="30" VerticalOptions="CenterAndExpand">
+        <ScrollView>
+            <StackLayout Spacing="20">
+                <ffimageloading:CachedImage Aspect="AspectFit"
+                                                Source="{Binding Image}" 
+                                                CacheDuration= "50"
+                                                HeightRequest="150"
+                                                Margin="5"
+                                                RetryCount= "3"
+                                                RetryDelay= "600">
+                    <ffimageloading:CachedImage.Transformations>
+                        <fftransformations:CropTransformation />
+                    </ffimageloading:CachedImage.Transformations>
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+                <border:SfBorder HeightRequest="80" Style="{StaticResource ThemeBorderStyle}">
+                    <inputLayout:SfTextInputLayout Hint="Título" FocusedColor="Black" 
+                                                   ContainerBackgroundColor="Transparent"
+                                                   Margin="10">
+                        <control:BorderlessEntry Text="{Binding DetalleBuzon.Titulo}"
+                                             PlaceholderColor="#606a7b" Margin="15,0"
+                                             Style="{StaticResource BorderlessEntryStyle}" MaxLength="60"
+                                                 TextColor="#333942">
+                        </control:BorderlessEntry>
+                    </inputLayout:SfTextInputLayout>
+                </border:SfBorder>
+
+                <border:SfBorder Style="{StaticResource ThemeBorderStyle}">
+                    <inputLayout:SfTextInputLayout Hint="Descripción" 
+                                                   ContainerBackgroundColor="Transparent" 
+                                                   Margin="10,0,10,0">
+                        <control:BorderlessEditor 
+                                         MaxLength="500" IsExpandable="True"
+                                          Style="{StaticResource BorderlessEditorStyle}" Margin="0,10,0,0"
+                                         Text="{Binding DetalleBuzon.Descripcion}"
+                                         TextColor="Black">
+                        </control:BorderlessEditor>
+                    </inputLayout:SfTextInputLayout>
+                </border:SfBorder>
+
+                <border:SfBorder Style="{StaticResource ThemeBorderStyle}">
+                    <inputLayout:SfTextInputLayout Hint="Tipo de gravedad" 
+                                                   ContainerBackgroundColor="Transparent" Margin="10,0,10,0">
+                        <combobox:SfComboBox SelectedItem="{Binding DetalleBuzon.TipoDeGravedad}" DataSource="{Binding TiposDeGravedad}">
+                        </combobox:SfComboBox>
+                    </inputLayout:SfTextInputLayout>
+                </border:SfBorder>
+            </StackLayout>
+        </ScrollView>
+        <buttons:SfButton Command="{Binding SendReportCommand}"
+                            HorizontalOptions="Fill"
+                            Style="{StaticResource LestomaGradientButtonStyle}"
+                            Text="Enviar" />
+    </StackLayout>
+</ContentPage>
