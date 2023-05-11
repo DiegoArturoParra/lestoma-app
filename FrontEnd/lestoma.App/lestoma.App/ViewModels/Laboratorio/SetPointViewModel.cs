@@ -170,7 +170,7 @@ namespace lestoma.App.ViewModels.Laboratorio
         {
             try
             {
-                _laboratorioRequest.Ip = GetLocalIPAddress();
+                _laboratorioRequest.Ip = await GetPublicIPAddressAsync();
                 _laboratorioRequest.TramaEnviada = TramaEnviada;
                 _laboratorioRequest.TramaRecibida = tramaRecibida;
                 _laboratorioRequest.ComponenteId = _componenteRequest.ComponenteId;
