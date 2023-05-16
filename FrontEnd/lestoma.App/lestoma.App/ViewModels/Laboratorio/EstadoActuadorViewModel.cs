@@ -101,15 +101,15 @@ namespace lestoma.App.ViewModels.Laboratorio
                 _cancellationTokenSource = new CancellationTokenSource();
                 _cancellationToken = _cancellationTokenSource.Token;
                 byte[] bytesFlotante = new byte[4];
-                if (IsOn.HasValue)
-                {
-                    bytesFlotante = Reutilizables.IEEEFloatingPointToByte(IsOn.Value ? 1 : 0);
-                }
+                //if (IsOn.HasValue)
+                //{
+                //    bytesFlotante = Reutilizables.IEEEFloatingPointToByte(IsOn.Value ? 1 : 0);
+                //}
                 TramaComponente.TramaOchoBytes[2] = new ListadoEstadoComponente().GetEstadoAjuste().ByteDecimalFuncion;
-                TramaComponente.TramaOchoBytes[4] = bytesFlotante[0];
-                TramaComponente.TramaOchoBytes[5] = bytesFlotante[1];
-                TramaComponente.TramaOchoBytes[6] = bytesFlotante[2];
-                TramaComponente.TramaOchoBytes[7] = bytesFlotante[3];
+                TramaComponente.TramaOchoBytes[4] = (byte)(IsOn.Value ? 1 : 0);
+                //TramaComponente.TramaOchoBytes[5] = bytesFlotante[1];
+                //TramaComponente.TramaOchoBytes[6] = bytesFlotante[2];
+                //TramaComponente.TramaOchoBytes[7] = bytesFlotante[3];
                 var tramaAEnviar = _crcHelper.TramaConCRC16Modbus(new List<byte>(TramaComponente.TramaOchoBytes));
                 SendTrama(tramaAEnviar, true);
             }
@@ -188,6 +188,11 @@ namespace lestoma.App.ViewModels.Laboratorio
         {
             try
             {
+                if (!MBluetoothAdapter.IsEnabled)
+                {
+                    AlertError("Debe prender el bluetooth.");
+                    return;
+                }
                 if (btSocket.IsConnected)
                 {
                     Timer timer = new Timer(state => _cancellationTokenSource.Cancel(), null, 30000, Timeout.Infinite);
@@ -220,13 +225,17 @@ namespace lestoma.App.ViewModels.Laboratorio
                     }
                     else
                     {
-                        if (Valor != 0 || Valor != 1)
+                        if (Valor.HasValue)
                         {
-                            await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: "No se pudo obtener el estado, ha ocurrido un error al recibir los datos."
-                                                            , icon: Constants.ICON_WARNING));
-                            return;
+                            int OnOff = int.Parse(Valor.Value.ToString());
+                            if (OnOff != 1 && OnOff != 0)
+                            {
+                                await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: "No se pudo obtener el estado, ha ocurrido un error al recibir los datos."
+                                                           , icon: Constants.ICON_WARNING));
+                                return;
+                            }
+                            IsOn = OnOff == 1;
                         }
-                        IsOn = Valor == 1;
                     }
                     SaveData(Reutilizables.ByteArrayToHexString(tramaEnviada.ToArray()), tramaRecibida, editState);
                 }

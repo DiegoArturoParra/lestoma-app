@@ -110,6 +110,11 @@ namespace lestoma.App.ViewModels.Laboratorio
         {
             try
             {
+                if (!MBluetoothAdapter.IsEnabled)
+                {
+                    AlertError("Debe prender el bluetooth.");
+                    return;
+                }
                 if (btSocket.IsConnected)
                 {
                     Timer timer = new Timer(state => _cancellationTokenSource.Cancel(), null, 30000, Timeout.Infinite);

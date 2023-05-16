@@ -39,7 +39,7 @@ namespace lestoma.App.ViewModels
         private int _pageSize;
         private int _pageNumber;
         private bool _isRefreshing;
-        public BluetoothAdapter MBluetoothAdapter { get; set; }
+        public static BluetoothAdapter MBluetoothAdapter { get; set; }
         public static BluetoothSocket btSocket = null;
 
         protected INavigationService NavigationService { get; private set; }

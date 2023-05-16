@@ -64,6 +64,8 @@ namespace Lestoma.Tests.Common.Helpers
         [InlineData(35, "00000C42")]
         [InlineData(27, "0000D841")]
         [InlineData(18, "00009041")]
+        [InlineData(0, "00000000")]
+        [InlineData(1, "0000803F")]
         public void IEEEFloatingPointToByte_Return_CorrectFormat(int entrada, string salida)
         {
             var resultIEEE = Reutilizables.IEEEFloatingPointToByte(entrada);
