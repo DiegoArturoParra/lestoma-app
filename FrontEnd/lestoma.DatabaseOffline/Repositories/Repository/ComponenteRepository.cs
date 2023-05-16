@@ -49,6 +49,7 @@ namespace lestoma.DatabaseOffline.Repositories.Repository
         public async Task<IEnumerable<NameProtocoloDTO>> GetProtocolos(Guid idUpa)
         {
             var data = new List<NameProtocoloDTO>();
+            var datos = await _dbSet.ToListAsync();
             var protocolos = await _dbSet.Where(y => y.UpaId == idUpa).Select(x => x.Protocolos).FirstOrDefaultAsync();
             if (!string.IsNullOrWhiteSpace(protocolos))
             {

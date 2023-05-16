@@ -79,10 +79,11 @@ namespace lestoma.Data.Repositories
                     Id = x.Upa.Id,
                     Nombre = x.Upa.Nombre,
                 },
-                Protocolos = _db.TablaProtocoloCOM.Where(x => x.UpaId == x.Upa.Id).Select(y => new ProtocoloSyncDTO
+                Protocolos = _db.TablaProtocoloCOM.Where(x => x.UpaId == filtro.UpaId).GroupBy(y => new { y.Nombre, y.PrimerByteTrama })
+                .Select(y => new ProtocoloSyncDTO
                 {
-                    Nombre = y.Nombre,
-                    PrimerByteTrama = y.PrimerByteTrama
+                    Nombre = y.Key.Nombre,
+                    PrimerByteTrama = y.Key.PrimerByteTrama
                 }).ToList(),
             }).ToListAsync();
         }
