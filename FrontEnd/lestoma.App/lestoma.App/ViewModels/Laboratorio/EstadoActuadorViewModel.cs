@@ -198,7 +198,7 @@ namespace lestoma.App.ViewModels.Laboratorio
                     Timer timer = new Timer(state => _cancellationTokenSource.Cancel(), null, 30000, Timeout.Infinite);
                     await btSocket.OutputStream.WriteAsync(tramaEnviada.ToArray(), 0, tramaEnviada.Count, _cancellationToken);
 
-                    var tramaRecibida = await ReceivedData();
+                    var tramaRecibida = await ReceivedData(editState);
                     if (string.IsNullOrWhiteSpace(tramaRecibida))
                     {
                         await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: "No se pudo obtener la trama.", icon: Constants.ICON_WARNING));
@@ -228,7 +228,7 @@ namespace lestoma.App.ViewModels.Laboratorio
                         if (Valor.HasValue)
                         {
                             int OnOff = int.Parse(Valor.Value.ToString());
-                            if (OnOff != 1 && OnOff != 0)
+                            if (OnOff > 1 && OnOff < 0)
                             {
                                 await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: "No se pudo obtener el estado, ha ocurrido un error al recibir los datos."
                                                            , icon: Constants.ICON_WARNING));
@@ -249,7 +249,7 @@ namespace lestoma.App.ViewModels.Laboratorio
 
 
 
-        private async Task<string> ReceivedData()
+        private async Task<string> ReceivedData(bool editState)
         {
             string TramaHexadecimal = string.Empty;
             var inputstream = btSocket.InputStream;
@@ -257,6 +257,15 @@ namespace lestoma.App.ViewModels.Laboratorio
             int recibido = 0; // bytes returned from read()
             return await Task.Run(async () =>
             {
+                if (editState)
+                {
+                    UserDialogs.Instance.ShowLoading("Enviando información...");
+                }
+                else
+                {
+                    UserDialogs.Instance.ShowLoading("Cargando información...");
+                }
+
                 while (!_cancellationToken.IsCancellationRequested)
                 {
                     try
@@ -283,6 +292,10 @@ namespace lestoma.App.ViewModels.Laboratorio
                         SeeError(ex, "No se pudo recibir la data de la trama por bluetooth.");
                         btSocket?.Close();
                         throw;
+                    }
+                    finally
+                    {
+                        UserDialogs.Instance.HideLoading();
                     }
                 }
                 return TramaHexadecimal;

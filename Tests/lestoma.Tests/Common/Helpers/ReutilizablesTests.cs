@@ -49,6 +49,7 @@ namespace Lestoma.Tests.Common.Helpers
 
         [Theory]
         [InlineData(80)]
+        [InlineData(1)]
         public void ByteToIEEEFloatingPoint_AndReverse_Return_CorrectFormat(float setPoint)
         {
             var resultByte = Reutilizables.IEEEFloatingPointToByte(setPoint);
