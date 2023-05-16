@@ -1,4 +1,5 @@
-﻿using lestoma.CommonUtils.Helpers;
+﻿using lestoma.CommonUtils.Constants;
+using lestoma.CommonUtils.Helpers;
 using lestoma.CommonUtils.Listados;
 using lestoma.CommonUtils.Requests.Filters;
 using System;
@@ -39,6 +40,7 @@ namespace Lestoma.Tests.Common.Helpers
         }
         [Theory]
         [InlineData("43CC800000004842D3A1", 50)]
+        [InlineData(Constants.TRAMA_SUCESS, -411206.25)]
         public void SetPoint_Return_CorrectFormat(string trama, float setPoint)
         {
             float result = Reutilizables.ConvertReceivedTramaToResult(trama);

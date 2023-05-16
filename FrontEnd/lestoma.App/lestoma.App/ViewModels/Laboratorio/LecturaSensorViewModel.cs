@@ -112,6 +112,7 @@ namespace lestoma.App.ViewModels.Laboratorio
             {
                 if (btSocket.IsConnected)
                 {
+                    Timer timer = new Timer(state => _cancellationTokenSource.Cancel(), null, 30000, Timeout.Infinite);
                     await btSocket.OutputStream.WriteAsync(tramaEnviada.ToArray(), 0, tramaEnviada.Count, _cancellationToken);
                     var tramaRecibida = await ReceivedData();
                     if (string.IsNullOrWhiteSpace(tramaRecibida))

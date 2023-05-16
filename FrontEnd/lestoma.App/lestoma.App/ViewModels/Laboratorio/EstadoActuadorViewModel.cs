@@ -99,7 +99,6 @@ namespace lestoma.App.ViewModels.Laboratorio
                 }
                 _cancellationTokenSource = new CancellationTokenSource();
                 _cancellationToken = _cancellationTokenSource.Token;
-
                 byte[] bytesFlotante = new byte[4];
                 if (IsOn.HasValue)
                 {
@@ -186,10 +185,11 @@ namespace lestoma.App.ViewModels.Laboratorio
 
         private async void TransmissionBluetooth(List<byte> tramaEnviada, bool editState)
         {
-            if (btSocket.IsConnected)
+            try
             {
-                try
+                if (btSocket.IsConnected)
                 {
+                    Timer timer = new Timer(state => _cancellationTokenSource.Cancel(), null, 30000, Timeout.Infinite);
                     await btSocket.OutputStream.WriteAsync(tramaEnviada.ToArray(), 0, tramaEnviada.Count, _cancellationToken);
 
                     var tramaRecibida = await ReceivedData();
@@ -199,6 +199,7 @@ namespace lestoma.App.ViewModels.Laboratorio
                         return;
                     }
                     var response = _crcHelper.VerifyCRCOfReceivedTrama(tramaRecibida);
+
                     if (!response.IsExito)
                     {
                         await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: response.MensajeHttp, icon: Constants.ICON_WARNING));
@@ -207,24 +208,32 @@ namespace lestoma.App.ViewModels.Laboratorio
                     Valor = Reutilizables.ConvertReceivedTramaToResult(tramaRecibida);
                     if (editState)
                     {
-                        if (Valor == (int)HttpStatusCode.Conflict)
+                        if (!tramaRecibida.Equals(Constants.TRAMA_SUCESS))
                         {
-                            await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: "No se pudo obtener el estado, ha ocurrido un error al recibir los datos."
+                            string message = IsOn == true ? "encender" : "apagar";
+                            await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: $"No se pudo {message}, ha ocurrido un error al recibir los datos."
                                                             , icon: Constants.ICON_WARNING));
+                            IsOn = !IsOn.Value;
                             return;
                         }
                     }
                     else
                     {
+                        if (Valor != 0 || Valor != 1)
+                        {
+                            await PopupNavigation.Instance.PushAsync(new MessagePopupPage(message: "No se pudo obtener el estado, ha ocurrido un error al recibir los datos."
+                                                            , icon: Constants.ICON_WARNING));
+                            return;
+                        }
                         IsOn = Valor == 1;
                     }
                     SaveData(Reutilizables.ByteArrayToHexString(tramaEnviada.ToArray()), tramaRecibida, editState);
                 }
-                catch (Exception ex)
-                {
-                    btSocket?.Close();
-                    SeeError(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                btSocket?.Close();
+                SeeError(ex);
             }
         }
 
