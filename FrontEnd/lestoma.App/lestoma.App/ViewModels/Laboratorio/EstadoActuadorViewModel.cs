@@ -43,6 +43,7 @@ namespace lestoma.App.ViewModels.Laboratorio
             ChangeStatedCommand = new Command<object>(StatedSelected, CanNavigate);
             _cancellationTokenSource = new CancellationTokenSource();
             _cancellationToken = _cancellationTokenSource.Token;
+
             _crcHelper = crcHelper;
         }
 
@@ -99,7 +100,6 @@ namespace lestoma.App.ViewModels.Laboratorio
                 }
                 _cancellationTokenSource = new CancellationTokenSource();
                 _cancellationToken = _cancellationTokenSource.Token;
-
                 byte[] bytesFlotante = new byte[4];
                 if (IsOn.HasValue)
                 {

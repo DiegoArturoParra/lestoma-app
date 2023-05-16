@@ -70,7 +70,7 @@ namespace lestoma.Tests.Common.Helpers
         [InlineData("4901F04900000000AF5D")]
         [InlineData("4904F04900000000AF08")]
         [InlineData("6F97F01642480000F729")]
-
+        [InlineData("4905F0010000A2423F15")]
         public void CRCReceived_Return_CorrectFormat(string crcRecibido)
         {
             var response = _fixture.CrcHelper.VerifyCRCOfReceivedTrama(crcRecibido);

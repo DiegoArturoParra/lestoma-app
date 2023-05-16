@@ -70,8 +70,8 @@ namespace lestoma.CommonUtils.Helpers
 
         public static float ByteToIEEEFloatingPoint(byte[] Bytes)
         {
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(Bytes); // We have to reverse
+            //if (BitConverter.IsLittleEndian)
+            //    Array.Reverse(Bytes); // We have to reverse
             return BitConverter.ToSingle(Bytes, 0);
         }
 
@@ -105,8 +105,8 @@ namespace lestoma.CommonUtils.Helpers
         public static byte[] IEEEFloatingPointToByte(float floatingPoint)
         {
             byte[] bytes = BitConverter.GetBytes(floatingPoint);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(bytes);
+            //if (BitConverter.IsLittleEndian)
+            //    Array.Reverse(bytes);
             return bytes;
         }
         public T ReadJSON<T>(string filePath)
