@@ -70,7 +70,6 @@ namespace lestoma.Tests.Common.Helpers
         [InlineData("4901F04900000000AF5D")]
         [InlineData("4904F04900000000AF08")]
         [InlineData("6F97F01642480000F729")]
-        [InlineData("4905F0010000A2423F15")]
         public void CRCReceived_Return_CorrectFormat(string crcRecibido)
         {
             var response = _fixture.CrcHelper.VerifyCRCOfReceivedTrama(crcRecibido);
@@ -83,6 +82,9 @@ namespace lestoma.Tests.Common.Helpers
         [InlineData("498BF0D940C00000", "86A3")]
         [InlineData("49C8F05C420C0000", "1BDD")]
         [InlineData("6F03F0C4420C0000", "3904")]
+        [InlineData("49050F010000A242", "3F15")]
+        [InlineData("43CC800000004842", "D3A1")]
+        
         public void CRC_Returns_Equals(string trama, string crc)
         {
             var result = _fixture.CrcHelper.CalculateCrc16Modbus(trama);

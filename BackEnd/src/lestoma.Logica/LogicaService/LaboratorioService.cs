@@ -60,6 +60,10 @@ namespace lestoma.Logica.LogicaService
                 foreach (var item in datosOffline)
                 {
                     item.FechaCreacionServer = DateTime.Now;
+                    item.ValorCalculadoTramaEnviada = item.ValorCalculadoTramaEnviada.HasValue ?
+                Reutilizables.TruncateDouble(item.ValorCalculadoTramaEnviada.Value, 2) : null;
+                    item.ValorCalculadoTramaRecibida = item.ValorCalculadoTramaRecibida.HasValue ?
+             Reutilizables.TruncateDouble(item.ValorCalculadoTramaRecibida.Value, 2) : null;
                 }
                 await _laboratorioRepository.MergeDetails(datosOffline);
                 return Responses.SetOkResponse("Los datos offline fueron cargados con exito al servidor.");

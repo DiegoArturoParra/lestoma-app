@@ -15,10 +15,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -216,18 +218,24 @@ namespace lestoma.App.ViewModels
         {
             await NavigationService.ClearPopupStackAsync();
         }
-        protected static string GetLocalIPAddress()
+        protected static async Task<string> GetPublicIPAddressAsync()
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            try
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                using (var client = new HttpClient())
                 {
-                    return ip.ToString();
+                    // Utiliza el servicio de ipify.org para obtener la dirección IP pública
+                    var response = await client.GetStringAsync("https://api.ipify.org");
+                    return response.Trim();
                 }
             }
-            return string.Empty;
+            catch
+            {
+                // En caso de error, regresa una cadena vacía
+                return string.Empty;
+            }
         }
+
 
         protected async void SeeError(Exception exception, string errorMessage = "")
         {

@@ -2,6 +2,7 @@ using lestoma.CommonUtils.DTOs;
 using lestoma.CommonUtils.DTOs.Sync;
 using lestoma.CommonUtils.Enums;
 using lestoma.CommonUtils.Requests.Filters;
+using lestoma.CRC;
 using lestoma.Entidades.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -333,6 +334,7 @@ namespace lestoma.Data.Repositories
                     JsonEstado = x.JsonEstadoComponente
                 }).ToListAsync();
             }
+
         }
     }
 }

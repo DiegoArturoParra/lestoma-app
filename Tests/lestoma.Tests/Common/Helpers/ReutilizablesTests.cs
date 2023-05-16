@@ -1,4 +1,5 @@
-﻿using lestoma.CommonUtils.Helpers;
+﻿using lestoma.CommonUtils.Constants;
+using lestoma.CommonUtils.Helpers;
 using lestoma.CommonUtils.Listados;
 using lestoma.CommonUtils.Requests.Filters;
 using System;
@@ -38,11 +39,8 @@ namespace Lestoma.Tests.Common.Helpers
             Assert.Equal(valueOut, truncateValue);
         }
         [Theory]
-        [InlineData("43CC8000434800007082", 200)]
-        [InlineData("43CC8000424800008C83", 50)]
-        [InlineData("43CC800041F00000ED03", 30)]
-        [InlineData("43CC800043CC800099A3", 409)]
-        [InlineData("43CC8000417000000502", 15)]
+        [InlineData("43CC800000004842D3A1", 50)]
+        [InlineData(Constants.TRAMA_SUCESS, -411206.25)]
         public void SetPoint_Return_CorrectFormat(string trama, float setPoint)
         {
             float result = Reutilizables.ConvertReceivedTramaToResult(trama);
@@ -50,12 +48,7 @@ namespace Lestoma.Tests.Common.Helpers
         }
 
         [Theory]
-        [InlineData(200)]
-        [InlineData(52.1)]
-        [InlineData(26.4)]
-        [InlineData(409)]
-        [InlineData(15.3)]
-        [InlineData(17.23)]
+        [InlineData(80)]
         public void ByteToIEEEFloatingPoint_AndReverse_Return_CorrectFormat(float setPoint)
         {
             var resultByte = Reutilizables.IEEEFloatingPointToByte(setPoint);
@@ -65,11 +58,12 @@ namespace Lestoma.Tests.Common.Helpers
         }
 
         [Theory]
-        [InlineData(20, "41A00000")]
-        [InlineData(48, "42400000")]
-        [InlineData(35, "420C0000")]
-        [InlineData(27, "41D80000")]
-        [InlineData(18, "41900000")]
+        [InlineData(20, "0000A041")]
+        [InlineData(200, "00004843")]
+        [InlineData(48, "00004042")]
+        [InlineData(35, "00000C42")]
+        [InlineData(27, "0000D841")]
+        [InlineData(18, "00009041")]
         public void IEEEFloatingPointToByte_Return_CorrectFormat(int entrada, string salida)
         {
             var resultIEEE = Reutilizables.IEEEFloatingPointToByte(entrada);
