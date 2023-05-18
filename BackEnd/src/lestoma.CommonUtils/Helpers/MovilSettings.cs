@@ -44,7 +44,7 @@ namespace lestoma.CommonUtils.Helpers
 
         public static string CountModeOnline
         {
-            get => AppSettings.GetValueOrDefault(_isCountModeOnline, _stringDefault);
+            get => AppSettings.GetValueOrDefault(_isCountModeOnline, _intDefault);
             set => AppSettings.AddOrUpdateValue(_isCountModeOnline, value);
         }
 
