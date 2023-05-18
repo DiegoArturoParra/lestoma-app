@@ -1,5 +1,4 @@
-﻿using Hangfire;
-using lestoma.CommonUtils.Constants;
+﻿using lestoma.CommonUtils.Constants;
 using lestoma.CommonUtils.Core;
 using lestoma.CommonUtils.DTOs;
 using lestoma.CommonUtils.Enums;
@@ -8,7 +7,6 @@ using lestoma.CommonUtils.Interfaces;
 using lestoma.CommonUtils.MyException;
 using lestoma.CommonUtils.Requests.Filters;
 using lestoma.Data.Repositories;
-using lestoma.Entidades.Models;
 using lestoma.Logica.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -137,7 +135,7 @@ namespace lestoma.Logica.LogicaService
                     }
                 }
             }
-           
+
             var listado = await _repositorio.ReportByComponents(requestFilter);
             if (listado.Reporte.Count == 0)
             {

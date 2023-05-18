@@ -2,6 +2,7 @@
 using lestoma.App.Models;
 using lestoma.CommonUtils.Constants;
 using lestoma.CommonUtils.DTOs;
+using lestoma.CommonUtils.Enums;
 using lestoma.CommonUtils.Interfaces;
 using lestoma.CommonUtils.Requests;
 using Prism.Navigation;
@@ -37,17 +38,15 @@ namespace lestoma.App.ViewModels.Upas
             {
                 new ProtocoloModel()
                 {
-                    Id = 1,
-                    Nombre ="Peer To Peer",
-                    PrimerByteTrama = 73,
-                    Sigla ="P2P"
+                    Nombre =EnumConfig.GetDescription(TipoComunicacion.P2P),
+                    PrimerByteTrama = (int)TipoComunicacion.P2P,
+                    Sigla =TipoComunicacion.P2P.ToString()
                 },
                 new ProtocoloModel()
                 {
-                    Id = 2,
-                    Nombre ="Broadcast",
-                    PrimerByteTrama = 111,
-                    Sigla ="BR"
+                    Nombre =EnumConfig.GetDescription(TipoComunicacion.P2MP),
+                    PrimerByteTrama = (int)TipoComunicacion.P2MP,
+                    Sigla =TipoComunicacion.P2MP.ToString()
                 }
             };
         }

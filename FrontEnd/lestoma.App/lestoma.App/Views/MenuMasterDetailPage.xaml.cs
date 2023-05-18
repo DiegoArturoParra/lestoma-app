@@ -1,7 +1,6 @@
 ﻿using lestoma.CommonUtils.Helpers;
 using Prism.Navigation;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
