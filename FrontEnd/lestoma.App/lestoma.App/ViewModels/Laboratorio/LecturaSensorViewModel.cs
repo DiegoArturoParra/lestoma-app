@@ -150,6 +150,7 @@ namespace lestoma.App.ViewModels.Laboratorio
             int recibido = 0; // bytes returned from read()
             return await Task.Run(async () =>
             {
+                UserDialogs.Instance.ShowLoading("Cargando información...");
                 while (!_cancellationToken.IsCancellationRequested)
                 {
                     try
@@ -176,6 +177,10 @@ namespace lestoma.App.ViewModels.Laboratorio
                         SeeError(ex, "No se pudo recibir la data de la trama por bluetooth.");
                         btSocket?.Close();
                         throw;
+                    }
+                    finally
+                    {
+                        UserDialogs.Instance.HideLoading();
                     }
                 }
                 return TramaHexadecimal;

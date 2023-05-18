@@ -37,6 +37,7 @@ namespace lestoma.Api.Controllers
         {
             IEnumerable<NameDTO> actividades = null;
             UpaActivitiesFilterRequest UpaActivitiesfilter = new();
+            UpaActivitiesfilter.ModuloId = filtro.ModuloId;
             if (!IsSuperAdmin() && filtro.UpaId == Guid.Empty)
             {
                 filtro.UpaId = UpaId();

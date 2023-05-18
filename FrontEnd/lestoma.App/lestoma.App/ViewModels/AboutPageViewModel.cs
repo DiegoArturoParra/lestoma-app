@@ -19,9 +19,19 @@ namespace lestoma.App.ViewModels
             _unitOfWork = unitOfWork;
             Title = "Acerca de LESTOMA";
             MessageHelp = "Si desea usar el apartado del laboratorio en modo offline, debe sincronizar los datos desde el menú de configuración\n\n ¡Sincronizar datos al modo offline!";
-            VerifySyncToCloud();
         }
-
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey("isModeOnline"))
+            {
+                var isModeOnline = parameters.GetValue<bool>("isModeOnline");
+                if (isModeOnline)
+                {
+                    VerifySyncToCloud();
+                }   
+            }
+        }
         private async void VerifySyncToCloud()
         {
             try
@@ -37,7 +47,7 @@ namespace lestoma.App.ViewModels
                             var check = await UserDialogs.Instance.ConfirmAsync($"Tiene pendiente {count} registros de tramas por sincronizar a la nube.", "Alerta", "Aceptar", "Cancelar");
                             if (check)
                             {
-                                await Task.Delay(3000);
+                                await Task.Delay(1000);
                                 var parameters = new NavigationParameters
                                 {
                                      { "TypeSyncronization", TipoSincronizacion.MigrateDataOfflineToServer }

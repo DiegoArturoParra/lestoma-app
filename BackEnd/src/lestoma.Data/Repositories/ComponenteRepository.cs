@@ -39,7 +39,7 @@ namespace lestoma.Data.Repositories
 
         public async Task<ESuperAdministrador> GetSuperAdmin()
         {
-            var user = await _db.TablaUsuarios.FirstOrDefaultAsync(x => x.RolId == (int)TipoRol.SuperAdministrador);
+            EUsuario user = await _db.TablaUsuarios.FirstOrDefaultAsync(x => x.RolId == (int)TipoRol.SuperAdministrador);
             if (user == null)
             {
                 return null;
@@ -68,7 +68,11 @@ namespace lestoma.Data.Repositories
             {
                 query = query.Where(x => upaActivitiesFilter.ActividadesId.Contains(x.ActividadId));
             }
-            var listado = query.OrderBy(y => y.NombreComponente).Select(x => new ListadoComponenteDTO
+            if (upaActivitiesFilter.ModuloId != Guid.Empty)
+            {
+                query = query.Where(x => x.ModuloComponenteId == upaActivitiesFilter.ModuloId);   
+            }
+            IQueryable<ListadoComponenteDTO> listado = query.OrderBy(y => y.NombreComponente).Select(x => new ListadoComponenteDTO
             {
                 Actividad = x.Actividad.Nombre,
                 Nombre = x.NombreComponente,

@@ -32,6 +32,7 @@ using lestoma.DatabaseOffline.IConfiguration;
 using Newtonsoft.Json;
 using Prism;
 using Prism.Ioc;
+using Prism.Navigation;
 using Prism.Plugin.Popups;
 using System;
 using System.IO;
@@ -90,7 +91,11 @@ namespace lestoma.App
                 }
                 else
                 {
-                    await NavigationService.NavigateAsync($"{nameof(MenuMasterDetailPage)}/NavigationPage/{nameof(AboutPage)}");
+                    var parameters = new NavigationParameters
+                                {
+                                    { "isModeOnline", true }
+                                };
+                    await NavigationService.NavigateAsync($"{nameof(MenuMasterDetailPage)}/NavigationPage/{nameof(AboutPage)}", parameters);
                 }
             }
 
