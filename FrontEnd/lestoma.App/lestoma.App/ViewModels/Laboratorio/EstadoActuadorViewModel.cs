@@ -101,15 +101,9 @@ namespace lestoma.App.ViewModels.Laboratorio
                 _cancellationTokenSource = new CancellationTokenSource();
                 _cancellationToken = _cancellationTokenSource.Token;
                 byte[] bytesFlotante = new byte[4];
-                //if (IsOn.HasValue)
-                //{
-                //    bytesFlotante = Reutilizables.IEEEFloatingPointToByte(IsOn.Value ? 1 : 0);
-                //}
                 TramaComponente.TramaOchoBytes[2] = new ListadoEstadoComponente().GetEstadoAjuste().ByteDecimalFuncion;
                 TramaComponente.TramaOchoBytes[4] = (byte)(IsOn.Value ? 1 : 0);
-                //TramaComponente.TramaOchoBytes[5] = bytesFlotante[1];
-                //TramaComponente.TramaOchoBytes[6] = bytesFlotante[2];
-                //TramaComponente.TramaOchoBytes[7] = bytesFlotante[3];
+
                 var tramaAEnviar = _crcHelper.TramaConCRC16Modbus(new List<byte>(TramaComponente.TramaOchoBytes));
                 SendTrama(tramaAEnviar, true);
             }
@@ -253,8 +247,10 @@ namespace lestoma.App.ViewModels.Laboratorio
         {
             string TramaHexadecimal = string.Empty;
             var inputstream = btSocket.InputStream;
-            byte[] bufferRecibido = new byte[10];  // buffer store for the stream
-            int recibido = 0; // bytes returned from read()
+            // buffer store for the stream
+            byte[] bufferRecibido = new byte[Constants.BYTE_TRAMA_LENGTH];
+            // bytes returned from read()
+            int recibido = 0;
             return await Task.Run(async () =>
             {
                 if (editState)
@@ -279,19 +275,19 @@ namespace lestoma.App.ViewModels.Laboratorio
                             TramaHexadecimal += Reutilizables.ByteArrayToHexString(rebuf2);
                             if (!string.IsNullOrWhiteSpace(TramaHexadecimal))
                             {
-                                if (TramaHexadecimal.Length == 20)
+                                if (TramaHexadecimal.Length == Constants.HEXADECIMAL_TRAMA_LENGTH)
                                 {
                                     _cancellationTokenSource.Cancel();
                                 }
                             }
                         }
-                        Thread.Sleep(100);
+                        // Esta pausa es útil para evitar una lectura excesivamente rápida o continua del flujo de entrada.
+                        await Task.Delay(100);
                     }
                     catch (Exception ex)
                     {
-                        SeeError(ex, "No se pudo recibir la data de la trama por bluetooth.");
+                        SeeError(ex);
                         btSocket?.Close();
-                        throw;
                     }
                     finally
                     {
