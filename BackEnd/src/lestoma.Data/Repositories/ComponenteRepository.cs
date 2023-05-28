@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace lestoma.Data.Repositories
 {
@@ -70,7 +71,7 @@ namespace lestoma.Data.Repositories
             }
             if (upaActivitiesFilter.ModuloId != Guid.Empty)
             {
-                query = query.Where(x => x.ModuloComponenteId == upaActivitiesFilter.ModuloId);   
+                query = query.Where(x => x.ModuloComponenteId == upaActivitiesFilter.ModuloId);
             }
             IQueryable<ListadoComponenteDTO> listado = query.OrderBy(y => y.NombreComponente).Select(x => new ListadoComponenteDTO
             {
@@ -122,14 +123,18 @@ namespace lestoma.Data.Repositories
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<NameDTO>> GetComponentesPorUpaId(UpaActivitiesFilterRequest upaActivitiesfilter, bool IsAdmin)
+        public async Task<IEnumerable<NameDTO>> GetComponentesPorUpaModuloId(UpaActivitiesFilterRequest upaActivitiesfilter, bool IsSuperAdmin)
         {
-            if (IsAdmin)
+            if (IsSuperAdmin)
             {
                 var query = _dbSet.AsNoTracking();
                 if (upaActivitiesfilter.UpaId != Guid.Empty)
                 {
                     query = query.Where(x => x.UpaId == upaActivitiesfilter.UpaId);
+                }
+                if (upaActivitiesfilter.ModuloId != Guid.Empty)
+                {
+                    query = query.Where(x => x.ModuloComponenteId == upaActivitiesfilter.ModuloId);
                 }
                 return await query.Select(x => new NameDTO
                 {
@@ -137,8 +142,13 @@ namespace lestoma.Data.Repositories
                     Nombre = x.NombreComponente
                 }).OrderBy(y => y.Nombre).ToListAsync();
             }
-            return await _dbSet.Where(x => x.UpaId == upaActivitiesfilter.UpaId
-            && upaActivitiesfilter.ActividadesId.Contains(x.ActividadId)).Select(x => new NameDTO
+
+            var queryAdmin = _dbSet.Where(x => x.UpaId == upaActivitiesfilter.UpaId && upaActivitiesfilter.ActividadesId.Contains(x.ActividadId));
+            if (upaActivitiesfilter.ModuloId != Guid.Empty)
+            {
+                queryAdmin = queryAdmin.Where(x => x.ModuloComponenteId == upaActivitiesfilter.ModuloId);
+            }
+            return await queryAdmin.Select(x => new NameDTO
             {
                 Id = x.Id,
                 Nombre = x.NombreComponente

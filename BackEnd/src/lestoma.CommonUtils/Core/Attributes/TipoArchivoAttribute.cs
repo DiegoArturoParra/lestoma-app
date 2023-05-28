@@ -17,7 +17,7 @@ namespace lestoma.CommonUtils.Core.Attributes
 
         public TipoArchivoAttribute(GrupoTipoArchivo grupoTipoArchivo)
         {
-            if (grupoTipoArchivo == GrupoTipoArchivo.Imagen)
+            if (grupoTipoArchivo == GrupoTipoArchivo.IMAGEN)
             {
                 tiposValidos = new string[] { "image/jpeg", "image/png", "image/jpg", "image/bmp", "image/gif" };
             }

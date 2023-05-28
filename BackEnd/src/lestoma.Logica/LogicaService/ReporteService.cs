@@ -72,8 +72,8 @@ namespace lestoma.Logica.LogicaService
         #region Generar el documento PDF y Excel diariamente
         public async Task<ResponseDTO> GenerateDailyReport(ReporteDTO reporte)
         {
-            List<ArchivoDTO> archivos = new List<ArchivoDTO>();
-            ResponseDTO response = new ResponseDTO();
+            List<ArchivoDTO> archivos = new();
+            ResponseDTO response = new();
             var pdf = _generateReports.GeneratePdf(reporte, true);
             var filePdf = GetFile(GrupoTipoArchivo.PDF);
             if (pdf != null)
@@ -85,19 +85,19 @@ namespace lestoma.Logica.LogicaService
                     MIME = filePdf.MIME
                 });
             }
-            var excel = _generateReports.GenerateExcel(reporte, true);
-            var fileExcel = GetFile(GrupoTipoArchivo.EXCEL);
-            if (excel != null)
+            var CSV = await _generateReports.GenerateCSV(reporte);
+            var fileCSV = GetFile(GrupoTipoArchivo.CSV);
+            if (CSV != null)
             {
                 archivos.Add(new ArchivoDTO()
                 {
-                    ArchivoBytes = excel,
-                    FileName = fileExcel.FILENAME,
-                    MIME = fileExcel.MIME
+                    ArchivoBytes = CSV,
+                    FileName = fileCSV.FILENAME,
+                    MIME = fileCSV.MIME
                 });
             }
             var correosSuperAdmin = await _repositorio.GetCorreosRolSuperAdmin();
-            if (correosSuperAdmin.Count == 0)
+            if (!correosSuperAdmin.Any())
             {
                 throw new HttpStatusCodeException(HttpStatusCode.NotFound, @$"Error: No se pudo encontrar correos destinatarios para super 
                                                                               administradores.");
@@ -105,11 +105,11 @@ namespace lestoma.Logica.LogicaService
             foreach (var item in correosSuperAdmin)
             {
                 await _mailHelper.SendMailWithMultipleFile(item, $"Reporte diario día {DateTime.Now:dd/MM/yyyy}", archivos, string.Empty,
-                     "Hola Super Administrador", $"Se anexa el reporte del día {DateTime.Now:dd/MM/yyyy}, en Pdf y Excel", string.Empty,
+                     "Hola Super Administrador", $"Se anexa el reporte del día {DateTime.Now:dd/MM/yyyy}, en Pdf y csv", string.Empty,
                      @"Has recibido este e-mail porque eres usuario registrado en Lestoma-APP.<br>
                       <strong>Nota:</strong> Este correo se genera automáticamente, por favor no lo responda.");
-                _logger.LogInformation($"Enviado el pdf  y excel a {item}");
-                response.MensajeHttp = $"Enviado el pdf  y excel a {item}";
+                response.MensajeHttp += $"Enviado el pdf  y csv a {item}";
+                _logger.LogInformation($"Enviado el pdf  y csv a {item}");
             }
             return response;
         }
@@ -192,7 +192,7 @@ namespace lestoma.Logica.LogicaService
                 FechaFinal = filtro.FechaFinal
             };
             reporte.UserGenerator = email;
-            archivo.ArchivoBytes = _generateReports.GenerateReportByFormat(filtro.TipoFormato, reporte, isSuper);
+            archivo.ArchivoBytes = await _generateReports.GenerateReportByFormat(filtro.TipoFormato, reporte, isSuper);
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromSeconds(60))
                     .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
@@ -212,7 +212,7 @@ namespace lestoma.Logica.LogicaService
                 FechaFinal = obj.Filtro.FechaFinal
             };
             reporte.UserGenerator = email;
-            archivo.ArchivoBytes = _generateReports.GenerateReportByFormat(obj.Filtro.TipoFormato, reporte, isSuper);
+            archivo.ArchivoBytes = await _generateReports.GenerateReportByFormat(obj.Filtro.TipoFormato, reporte, isSuper);
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromSeconds(60))
                     .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
@@ -266,15 +266,19 @@ namespace lestoma.Logica.LogicaService
             string FileName = string.Empty;
             switch (grupoTipoArchivo)
             {
-                case GrupoTipoArchivo.Imagen:
+                case GrupoTipoArchivo.IMAGEN:
                     throw new HttpStatusCodeException(HttpStatusCode.BadRequest, @"Formato invalido, solo se puede PDF y EXCEL");
                 case GrupoTipoArchivo.PDF:
-                    Mime = MediaTypeNames.Application.Octet;
+                    Mime = MediaTypeNames.Application.Pdf;
                     FileName = $"Reporte_{dateString}.pdf";
                     break;
                 case GrupoTipoArchivo.EXCEL:
                     Mime = MediaTypeNames.Application.Octet;
                     FileName = $"Reporte_{dateString}.xlsx";
+                    break;
+                case GrupoTipoArchivo.CSV:
+                    Mime = MediaTypeNames.Application.Octet;
+                    FileName = $"Reporte_{dateString}.csv";
                     break;
             }
             return (Mime, FileName);

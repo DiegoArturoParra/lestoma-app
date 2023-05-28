@@ -33,5 +33,7 @@ namespace lestoma.CommonUtils.Constants
         #endregion
         public const int HEXADECIMAL_TRAMA_LENGTH = 20;
         public const int BYTE_TRAMA_LENGTH = 10;
+        public const string ENCENDIDO = "Encendido";
+        public const string APAGADO = "Apagado";
     }
 }
