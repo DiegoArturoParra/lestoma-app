@@ -3,6 +3,7 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using lestoma.CommonUtils.DTOs;
 using lestoma.CommonUtils.Enums;
+using lestoma.CommonUtils.Helpers;
 using lestoma.CommonUtils.Interfaces;
 using lestoma.CommonUtils.MyException;
 using Microsoft.AspNetCore.Hosting;
@@ -220,7 +221,7 @@ namespace lestoma.Api.Helpers
         {
             try
             {
-                return await _writeToCSVFile.WriteNewCSV(string.Empty, reporte.Reporte);
+                return await _writeToCSVFile.WriteNewCSV(reporte.Reporte);
             }
             catch (Exception ex)
             {

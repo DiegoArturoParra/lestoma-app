@@ -8,11 +8,11 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace lestoma.Api.Helpers
+namespace lestoma.CommonUtils.Helpers
 {
     public interface IWriteToCSVFile
     {
-        public Task<byte[]> WriteNewCSV<T>(string path, IEnumerable<T> listado);
+        public Task<byte[]> WriteNewCSV<T>(IEnumerable<T> listado);
         public Task<byte[]> GetFileCSV<T>(string path);
     }
     public class WriteToCSVFile : IWriteToCSVFile
@@ -37,7 +37,7 @@ namespace lestoma.Api.Helpers
 
         }
 
-        public async Task<byte[]> WriteNewCSV<T>(string path, IEnumerable<T> listado)
+        public async Task<byte[]> WriteNewCSV<T>(IEnumerable<T> listado)
         {
             try
             {
