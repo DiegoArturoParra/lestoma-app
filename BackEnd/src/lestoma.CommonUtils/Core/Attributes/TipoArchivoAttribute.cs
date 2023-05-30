@@ -30,9 +30,8 @@ namespace lestoma.CommonUtils.Core.Attributes
                 return ValidationResult.Success;
             }
 
-            IFormFile formFile = value as IFormFile;
 
-            if (formFile == null)
+            if (!(value is IFormFile formFile))
             {
                 return ValidationResult.Success;
             }

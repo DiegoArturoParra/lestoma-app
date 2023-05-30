@@ -317,11 +317,14 @@ namespace lestoma.App.ViewModels
             {
                 ExceptionDictionary dictionary = new ExceptionDictionary();
                 int exceptionCode = exception.HResult;
-                var exceptionDescription = dictionary.GetExceptionDescription(exceptionCode);
-                if (exceptionDescription.IsExceptionCode)
+                if (exception.Message.Contains("socket"))
                 {
-                    await PopupNavigation.Instance.PushAsync(new MessagePopupPage($"{exceptionDescription.MessageError}", Constants.ICON_ERROR));
-                    await Task.Delay(2000);
+                    var exceptionDescription = dictionary.GetExceptionDescription(exceptionCode);
+                    if (exceptionDescription.IsExceptionCode)
+                    {
+                        await PopupNavigation.Instance.PushAsync(new MessagePopupPage($"{exceptionDescription.MessageError}", Constants.ICON_ERROR));
+                        await Task.Delay(2000);
+                    }
                 }
                 else
                 {

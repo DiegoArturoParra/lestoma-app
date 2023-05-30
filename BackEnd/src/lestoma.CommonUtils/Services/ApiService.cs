@@ -234,6 +234,11 @@ namespace lestoma.CommonUtils.Services
                         }
                         else
                         {
+                            var data = JsonConvert.DeserializeObject<ResponseDTO>(jsonString);
+                            if (data != null)
+                            {
+                                return data;
+                            }
                             string errorMessage = MostrarMensajePersonalizadoStatus(response.StatusCode, jsonString);
                             return new ResponseDTO
                             {

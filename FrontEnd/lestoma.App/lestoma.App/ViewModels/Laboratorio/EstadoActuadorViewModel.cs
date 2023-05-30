@@ -5,7 +5,7 @@ using lestoma.CommonUtils.DTOs;
 using lestoma.CommonUtils.Enums;
 using lestoma.CommonUtils.Helpers;
 using lestoma.CommonUtils.Interfaces;
-using lestoma.CommonUtils.Listados;
+using lestoma.CommonUtils.ListadosJson;
 using lestoma.CommonUtils.Requests;
 using lestoma.DatabaseOffline.IConfiguration;
 using Prism.Navigation;

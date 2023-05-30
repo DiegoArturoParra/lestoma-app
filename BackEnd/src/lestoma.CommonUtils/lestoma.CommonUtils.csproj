@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Listados\JsonTest.json" />
+    <None Remove="ListadosJson\EstadosBuzon.json" />
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Include="Listados\EstadosDeComponentes.json" />
-    <EmbeddedResource Include="Listados\JsonTest.json" />
+    <EmbeddedResource Include="ListadosJson\EstadosBuzon.json" />
+    <EmbeddedResource Include="ListadosJson\EstadosDeComponentes.json" />
   </ItemGroup>
 
   <ItemGroup>

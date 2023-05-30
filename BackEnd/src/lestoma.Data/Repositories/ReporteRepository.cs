@@ -25,12 +25,6 @@ namespace lestoma.Data.Repositories
             return await _db.TablaUsuarios.AnyAsync(x => x.Email.Equals(email));
         }
 
-        public async Task<List<string>> GetCorreosRolSuperAdmin()
-        {
-            return await _db.TablaUsuarios.Where(x => x.RolId == (int)TipoRol.SuperAdministrador
-                    && x.EstadoId == (int)TipoEstadoUsuario.Activado).Select(x => x.Email).ToListAsync();
-        }
-
         public async Task<ReporteDTO> DailyReport(DateFilterRequest filtro)
         {
             ReporteDTO reporteDTO = new();

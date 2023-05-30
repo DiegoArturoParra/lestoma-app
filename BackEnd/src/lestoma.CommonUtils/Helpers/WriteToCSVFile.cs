@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace lestoma.CommonUtils.Helpers
@@ -48,7 +49,7 @@ namespace lestoma.CommonUtils.Helpers
                     IgnoreReferences = true,
                 };
                 using var memoryStream = new MemoryStream();
-                using var streamWriter = new StreamWriter(memoryStream);
+                using var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8);
                 using var csvOut = new CsvWriter(streamWriter, config);
                 await csvOut.WriteRecordsAsync(listado);
                 await streamWriter.FlushAsync();

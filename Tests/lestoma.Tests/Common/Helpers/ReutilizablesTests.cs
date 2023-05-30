@@ -1,6 +1,6 @@
 ﻿using lestoma.CommonUtils.Constants;
 using lestoma.CommonUtils.Helpers;
-using lestoma.CommonUtils.Listados;
+using lestoma.CommonUtils.ListadosJson;
 using lestoma.CommonUtils.Requests.Filters;
 using System;
 using System.Collections.Generic;

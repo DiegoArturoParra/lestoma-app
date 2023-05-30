@@ -71,6 +71,7 @@ namespace lestoma.Api
                     options.UseNpgsql(connectionString);
                 });
 
+                //generar los pdfs
                 var context = new CustomAssemblyLoadContext();
                 context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
 

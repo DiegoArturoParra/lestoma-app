@@ -52,7 +52,7 @@ namespace lestoma.Api.Helpers
                      <th align='center'>Generado por</th>
                      <th align='center'>Fecha de Servidor</th>
                      <th align='center'>Fecha de Dispositivo</th>
-                     <th align='center'>Modulo</th>
+                     <th align='center'>Módulo</th>
                      <th align='center'>Componente</th>
                      <th align='center'>Estado inicial</th>
                      <th align='center'>Estado final</th>
@@ -88,7 +88,7 @@ namespace lestoma.Api.Helpers
                      <th align='center'>Generado por</th>
                      <th align='center'>Fecha del Servidor</th>
                      <th align='center'>Fecha del Dispositivo</th>      
-                     <th align='center'>Modulo</th>
+                     <th align='center'>Módulo</th>
                      <th align='center'>Componente</th>
                      <th align='center'>Estado inicial</th>
                      <th align='center'>Estado final</th>
@@ -120,7 +120,7 @@ namespace lestoma.Api.Helpers
                     worksheet.Cell(currentRow, 2).Value = "Upa";
                     worksheet.Cell(currentRow, 3).Value = "Fecha del Servidor";
                     worksheet.Cell(currentRow, 4).Value = "Fecha del Dispositivo";
-                    worksheet.Cell(currentRow, 5).Value = "Modulo";
+                    worksheet.Cell(currentRow, 5).Value = "Módulo";
                     worksheet.Cell(currentRow, 6).Value = "Componente";
                     worksheet.Cell(currentRow, 7).Value = "Estado inicial";
                     worksheet.Cell(currentRow, 8).Value = "Estado final";

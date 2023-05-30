@@ -18,11 +18,11 @@ namespace lestoma.CommonUtils.DTOs
     {
         [Name("Nombre UPA")]
         public string NombreUpa { get; set; }
-        [Name("Usuario")]
+        [Name("Generado por")]
         public string Usuario { get; set; }
-        [Name("Fecha de Servidor")]
+        [Name("Fecha de servidor")]
         public DateTime? FechaServidor { get; set; }
-        [Name("Fecha de Dispositivo")]
+        [Name("Fecha de dispositivo")]
         public DateTime FechaDispositivo { get; set; }
         [Name("Componente")]
         public string Componente { get; set; }

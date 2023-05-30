@@ -23,20 +23,26 @@ namespace lestoma.Logica.LogicaService
     {
         private readonly ILoggerManager _logger;
         private readonly IMemoryCache _cache;
-        private readonly ReporteRepository _repositorio;
         private readonly IMailHelper _mailHelper;
+        private readonly IGenerateReport _generateReports;
+
+        #region repositories
+        private readonly UsuarioRepository _usuarioRepository;
+        private readonly ReporteRepository _reporteRepository;
         private readonly UpaRepository _upaRepository;
         private readonly ComponenteRepository _componenteRepository;
-        private readonly IGenerateReport _generateReports;
-        public ReporteService(ReporteRepository reporteRepository, IMailHelper mailHelper, ILoggerManager logger, IMemoryCache memoryCache,
-            IGenerateReport generateReports, UpaRepository upaRepository, ComponenteRepository componenteRepository)
+        #endregion
+        public ReporteService(IMailHelper mailHelper, ILoggerManager logger, IMemoryCache memoryCache,
+            IGenerateReport generateReports, ReporteRepository reporteRepository, UpaRepository upaRepository, ComponenteRepository componenteRepository,
+            UsuarioRepository usuarioRepository)
         {
             _cache = memoryCache;
             _logger = logger;
-            _upaRepository = upaRepository;
-            _repositorio = reporteRepository;
             _mailHelper = mailHelper;
             _generateReports = generateReports;
+            _upaRepository = upaRepository;
+            _reporteRepository = reporteRepository;
+            _usuarioRepository = usuarioRepository;
             _componenteRepository = componenteRepository;
         }
 
@@ -48,7 +54,7 @@ namespace lestoma.Logica.LogicaService
                 FechaInicial = DateTime.Now.Date
             };
             filtro.FechaFinal = filtro.FechaInicial.AddDays(1).AddSeconds(-1);
-            var listado = await _repositorio.DailyReport(filtro);
+            var listado = await _reporteRepository.DailyReport(filtro);
             if (listado.Reporte.Count == 0)
             {
                 throw new HttpStatusCodeException(HttpStatusCode.NotFound, @"No hay datos para generar el reporte diario.");
@@ -61,7 +67,7 @@ namespace lestoma.Logica.LogicaService
         #region Obtener tiempo de informe diario
         public async Task<ResponseDTO> GetDailyReportTime()
         {
-            var time = await _repositorio.GetDailyReportTime(Constants.KEY_REPORT_DAILY);
+            var time = await _reporteRepository.GetDailyReportTime(Constants.KEY_REPORT_DAILY);
             if (time == null)
                 throw new HttpStatusCodeException(HttpStatusCode.NotFound, @$"Error: No se pudo encontrar la hora del job.");
 
@@ -96,12 +102,11 @@ namespace lestoma.Logica.LogicaService
                     MIME = fileCSV.MIME
                 });
             }
-            var correosSuperAdmin = await _repositorio.GetCorreosRolSuperAdmin();
+            var correosSuperAdmin = await _usuarioRepository.GetCorreosRolSuperAdmin();
             if (!correosSuperAdmin.Any())
-            {
                 throw new HttpStatusCodeException(HttpStatusCode.NotFound, @$"Error: No se pudo encontrar correos destinatarios para super 
                                                                               administradores.");
-            }
+           
             foreach (var item in correosSuperAdmin)
             {
                 await _mailHelper.SendMailWithMultipleFile(item, $"Reporte diario día {DateTime.Now:dd/MM/yyyy}", archivos, string.Empty,
@@ -136,7 +141,7 @@ namespace lestoma.Logica.LogicaService
                 }
             }
 
-            var listado = await _repositorio.ReportByComponents(requestFilter);
+            var listado = await _reporteRepository.ReportByComponents(requestFilter);
             if (listado.Reporte.Count == 0)
             {
                 string mensaje = requestFilter.Filtro.UpaId == Guid.Empty ? "de las upas." : $"de la upa {upa}";
@@ -163,7 +168,7 @@ namespace lestoma.Logica.LogicaService
             if (filtro.UpaId != Guid.Empty)
                 upa = await ExistUpa(filtro.UpaId);
 
-            var listado = await _repositorio.ReportByDate(filtro);
+            var listado = await _reporteRepository.ReportByDate(filtro);
             if (listado.Reporte.Count == 0)
             {
                 string mensaje = filtro.UpaId == Guid.Empty ? "de las upas." : $"de la upa {upa}";

@@ -1,7 +1,7 @@
 ﻿using lestoma.CommonUtils.Constants;
 using lestoma.CommonUtils.Enums;
 using lestoma.CommonUtils.Helpers;
-using lestoma.CommonUtils.Listados;
+using lestoma.CommonUtils.ListadosJson;
 using lestoma.Entidades.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

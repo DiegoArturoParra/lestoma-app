@@ -108,6 +108,7 @@ namespace lestoma.App
             containerRegistry.Register<IFilesHelper, FilesHelper>();
             containerRegistry.Register<ICRCHelper, CRCHelper>();
             containerRegistry.Register<IUnitOfWork>(c => new UnitOfWork(DbPathSqlLite));
+            
             #region Navegaciones
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterPopupNavigationService();
@@ -158,8 +159,11 @@ namespace lestoma.App
             containerRegistry.RegisterForNavigation<EstadoActuadorPage, EstadoActuadorViewModel>();
             containerRegistry.RegisterForNavigation<MACBluetoothPopupPage, MACBluetoothPopupViewModel>();
             containerRegistry.RegisterForNavigation<InputSetPointPopupPage, InputSetPointPopupViewModel>();
-            #endregion
             containerRegistry.RegisterForNavigation<ManualPage, ManualPageViewModel>();
+            containerRegistry.RegisterForNavigation<EditStatusPopupPage, EditStatusPopupViewModel>();
+            #endregion
+
+
         }
     }
 }
