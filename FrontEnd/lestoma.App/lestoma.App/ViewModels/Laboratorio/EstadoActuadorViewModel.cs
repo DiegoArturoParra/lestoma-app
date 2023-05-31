@@ -301,7 +301,6 @@ namespace lestoma.App.ViewModels.Laboratorio
         {
             try
             {
-                _laboratorioRequest.Ip = await GetPublicIPAddressAsync();
                 _laboratorioRequest.TramaEnviada = TramaEnviada;
                 _laboratorioRequest.TramaRecibida = tramaRecibida;
                 _laboratorioRequest.ComponenteId = _componenteRequest.ComponenteId;
@@ -315,8 +314,9 @@ namespace lestoma.App.ViewModels.Laboratorio
                 if (_apiService.CheckConnection())
                 {
                     LestomaLog.Normal("Enviando al servidor.");
-                    _laboratorioRequest.EstadoInternet = true;
                     UserDialogs.Instance.ShowLoading("Enviando al servidor...");
+                    _laboratorioRequest.EstadoInternet = true;
+                    _laboratorioRequest.Ip = await GetPublicIPAddressAsync();
                     ResponseDTO response = await _apiService.PostAsyncWithToken(URL_API, "laboratorio-lestoma/crear-detalle",
                         _laboratorioRequest, TokenUser.Token);
                     if (!response.IsExito)

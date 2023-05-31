@@ -140,7 +140,7 @@ namespace lestoma.App.ViewModels.Laboratorio
             // buffer store for the stream
             byte[] bufferRecibido = new byte[Constants.BYTE_TRAMA_LENGTH];
             // bytes returned from read()
-            int recibido = 0; 
+            int recibido = 0;
             return await Task.Run(async () =>
             {
                 UserDialogs.Instance.ShowLoading("Enviando información...");
@@ -183,7 +183,6 @@ namespace lestoma.App.ViewModels.Laboratorio
         {
             try
             {
-                _laboratorioRequest.Ip = await GetPublicIPAddressAsync();
                 _laboratorioRequest.TramaEnviada = TramaEnviada;
                 _laboratorioRequest.TramaRecibida = tramaRecibida;
                 _laboratorioRequest.ComponenteId = _componenteRequest.ComponenteId;
@@ -193,9 +192,10 @@ namespace lestoma.App.ViewModels.Laboratorio
                 _laboratorioRequest.TipoDeAplicacion = EnumConfig.GetDescription(TipoAplicacion.AppMovil);
                 if (_apiService.CheckConnection())
                 {
-                    UserDialogs.Instance.ShowLoading("Enviando al servidor...");
                     LestomaLog.Normal("Enviando al servidor.");
+                    UserDialogs.Instance.ShowLoading("Enviando al servidor...");
                     _laboratorioRequest.EstadoInternet = true;
+                    _laboratorioRequest.Ip = await GetPublicIPAddressAsync();
                     ResponseDTO response = await _apiService.PostAsyncWithToken(URL_API, "laboratorio-lestoma/crear-detalle",
                         _laboratorioRequest, TokenUser.Token);
                     if (!response.IsExito)
