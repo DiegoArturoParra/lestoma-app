@@ -160,8 +160,7 @@ namespace lestoma.Api.Helpers
                 }
                 catch (Exception ex)
                 {
-                    throw new HttpStatusCodeException(HttpStatusCode.InternalServerError,
-                        $"Error: No se pudo generar el reporte en Excel, {ex.Message}");
+                    throw new HttpStatusCodeException(HttpStatusCode.InternalServerError, $"Error: No se pudo generar el reporte en Excel, {ex.Message}");
                 }
             }
         }

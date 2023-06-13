@@ -211,7 +211,7 @@ namespace lestoma.Logica.LogicaService
             {
                 throw new HttpStatusCodeException(HttpStatusCode.NotFound, "No se encuentra la actividad.");
             }
-            return await _componenteRepository.GetRegistrationAddressesByUpaModulo(FilterRequest, direccionesRegistro);
+            return await _componenteRepository.GetDireccionesRegistroDisponibles(FilterRequest, direccionesRegistro);
         }
     }
 }
