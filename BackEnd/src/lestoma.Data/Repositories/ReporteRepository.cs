@@ -138,7 +138,7 @@ namespace lestoma.Data.Repositories
 
         public async Task<TimeSpan?> GetDailyReportTime(string kEY_REPORT_DAILY)
         {
-            await using (NpgsqlConnection connection = new NpgsqlConnection(_db.Database.GetConnectionString()))
+            await using (NpgsqlConnection connection = new(_db.Database.GetConnectionString()))
             {
                 connection.Open();
                 var sql = "SELECT hg.score as fecha FROM hangfire_lestoma.set hg WHERE value = @key";
